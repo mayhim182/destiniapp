@@ -61,6 +61,11 @@
 import 'story.dart';
 
 class StoryBrain{
+
+  int _indexStoryTitle=0;
+  int _indexChoice1=0;
+  int _indexChoice2=0;
+
   List<Story> _storyData = [
  Story(
      'Your car has blown a tire on a winding road in the middle of nowhere with no cell phone reception. You decide to hitchhike. A rusty pickup truck rumbles to a stop next to you. A man with a wide brimmed hat with soulless eyes opens the passenger door for you and asks: "Need a ride, boy?".',
@@ -93,8 +98,17 @@ class StoryBrain{
 ];
 
 
+  //Getter methods
   String getStory(){
-    return this._storyData.first.getStoryTitle();
+    return this._storyData[_indexStoryTitle].getStoryTitle();
+  }
+
+  String getChoice1(){
+    return this._storyData[_indexChoice1++].getChoice1();
+  }
+
+  String getChoice2(){
+    return this._storyData[_indexChoice2++].getChoice2();
   }
 
 }
