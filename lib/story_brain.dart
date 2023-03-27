@@ -59,12 +59,28 @@
 //TODO: Step 27 - Create a method called buttonShouldBeVisible() which checks to see if storyNumber is 0 or 1 or 2 (when both buttons should show choices) and return true if that is the case, else it should return false.
 
 import 'story.dart';
+import 'storyTree.dart';
 
 class StoryBrain{
 
-  int _indexStoryTitle=0;
-  int _indexChoice1=0;
-  int _indexChoice2=0;
+
+  int _storyNumber=0;
+
+
+  //Method to reset
+  void reset(){
+    _storyNumber=0;
+  }
+
+  //Visibility of button
+  bool buttonShouldBeVisible(){
+    if(_storyNumber<3){
+      return true;
+    }
+    return false;
+  }
+
+
 
   List<Story> _storyData = [
  Story(
@@ -100,15 +116,50 @@ class StoryBrain{
 
   //Getter methods
   String getStory(){
-    return this._storyData[_indexStoryTitle].getStoryTitle();
+    return this._storyData[_storyNumber].getStoryTitle();
   }
 
   String getChoice1(){
-    return this._storyData[_indexChoice1++].getChoice1();
+    return this._storyData[_storyNumber].getChoice1();
   }
 
   String getChoice2(){
-    return this._storyData[_indexChoice2++].getChoice2();
+    return this._storyData[_storyNumber].getChoice2();
+  }
+
+
+  //Required methods
+  void nextStory(int choiceNumber){
+
+      if(choiceNumber==1 && _storyNumber==0){
+          _storyNumber=2;
+          return;
+      }
+      if(choiceNumber==2 && _storyNumber==0){
+        _storyNumber=1;
+        return;
+      }
+      if(choiceNumber==1 && _storyNumber==2){
+        _storyNumber=5;
+        return;
+      }
+      if(choiceNumber==2 && _storyNumber==2){
+        _storyNumber=4;
+        return;
+      }
+      if(choiceNumber==1 && _storyNumber==1){
+        _storyNumber=2;
+        return;
+      }
+      if(choiceNumber==2 && _storyNumber==1){
+        _storyNumber=3;
+        return;
+      }
+      if(_storyNumber==3 || _storyNumber==4 || _storyNumber==5 || _storyNumber>5){
+        reset();
+        return;
+      }
+
   }
 
 }
